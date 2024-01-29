@@ -1,7 +1,10 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
-export const StyleTitle = styled.h1`
+export const StyleTitle = styled(NavLink)`
     color: #4535AA;
+    text-decoration: none;
+    font-weight: bold;
     display: flex;
     justify-content: center;
     font-size: 140px;

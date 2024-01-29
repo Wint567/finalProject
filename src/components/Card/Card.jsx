@@ -1,8 +1,7 @@
 import React, { memo } from 'react';
 import { BasicModal } from '../ShowMoreModal/ShowMoreModal';
 import {
-  ButtonContainer,
-  ButtonMoreStyle,
+  ButtonContainer, ButtonStyle,
   CardTextStyle,
   CardTitleStyle,
   StyleCardsContainer,
@@ -11,10 +10,10 @@ import {
 const Card = memo(({ cardsInfo, quizInfo }) => (
   <StyleCardsContainer>
     <img src={cardsInfo.image} alt="cardImage"/>
-    <CardTitleStyle>{cardsInfo.name}</CardTitleStyle>
+    <CardTitleStyle>{cardsInfo.name.toUpperCase()}</CardTitleStyle>
     <CardTextStyle>{cardsInfo.description}</CardTextStyle>
     <ButtonContainer>
-      <ButtonMoreStyle onClick={() => alert('Coming soon...')}>Start</ButtonMoreStyle>
+      <ButtonStyle to={`/quizPage/${cardsInfo.name}`}>Start</ButtonStyle>
       {quizInfo && <BasicModal quizInfo={quizInfo}/>}
     </ButtonContainer>
   </StyleCardsContainer>

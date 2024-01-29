@@ -3,7 +3,7 @@ import { StyleTitle } from './style';
 
 const Header = () => (
   <div>
-    <StyleTitle>Progques</StyleTitle>
+    <StyleTitle to='/quiz'>Progques</StyleTitle>
   </div>
 );
 export default Header;

@@ -1,8 +1,21 @@
 import React from 'react';
-import { SidebarStyle } from './style';
+import {
+  InputStyle,
+  QuizCreate,
+  QuizFavorite,
+  SidebarStyle,
+} from './style';
 
 const Sidebar = () => (
-    <SidebarStyle>Sidebar</SidebarStyle>
+    <SidebarStyle>
+      <InputStyle placeholder='Search field '/>
+      <QuizCreate to='quiz/create'>
+          Quiz create
+      </QuizCreate>
+      <QuizFavorite to='quiz/favorite'>
+          Quiz favorite
+      </QuizFavorite>
+    </SidebarStyle>
 );
 
 export default Sidebar;

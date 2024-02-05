@@ -1,4 +1,25 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+
+export const Cards = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 50px;
+    gap: 20px;
+
+
+    @media (max-width: 1400px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr  1fr;
+        padding: 20px;
+    }
+`;
 
 export const StyleCardsContainer = styled.div`
     background-color: #E8E8E8;
@@ -11,7 +32,6 @@ export const StyleCardsContainer = styled.div`
     flex-direction: column;
     height: 400px;
 `;
-
 
 export const CardTextStyle = styled.p`
     font-size: 20px;
@@ -32,7 +52,10 @@ export const ButtonContainer = styled.div`
     margin-bottom: 20px;
 `;
 
-export const ButtonMoreStyle = styled.button`
+export const ButtonStyle = styled(NavLink)`
+    border: 1px solid black;
+    color: black;
+    text-decoration: none;
     padding: 10px 20px;
     border-radius: 50px;
     background-color: #EE6A95;

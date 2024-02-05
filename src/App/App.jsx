@@ -1,40 +1,24 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import Sidebar from '../components/Sidebar/Sidebar';
-import { CardsAPI } from '../api/api';
-import Card from '../components/Card/Card';
-import { CardsContainer, Container } from './style';
+import { Container } from './style';
+import CardsContainer from '../components/Card/CardsContainer';
+import QuizPageContainer from '../components/QuizPage/QuizPageContainer';
 
 function App() {
-  const [cardsInfo, setCardsInfo] = useState(null);
-  const [showMoreInfo, setShowMoreInfo] = useState(null);
-
-  const fetchCards = useCallback(async () => {
-    const response = await CardsAPI.cards();
-    setCardsInfo(response[0].cards);
-    setShowMoreInfo(response[0].showmore);
-  }, []);
-
-  useEffect(() => {
-    fetchCards();
-  }, []);
-
   return (
     <div className="App">
       <Header />
       <Container>
         <Sidebar />
-        <CardsContainer>
-          {cardsInfo && cardsInfo.map((card, index) => (
-            <Card
-              key={index}
-              cardsInfo={card}
-              quizInfo={showMoreInfo && showMoreInfo[index]}
-            />
-          ))}
-        </CardsContainer>
+        <Routes>
+          <Route path='/' element={<Navigate to='/quiz'/>}/>
+          <Route path='/quiz' element={<CardsContainer />}/>
+          <Route path='/quizPage/:quizName' element={<QuizPageContainer />}/>
+        </Routes>
       </Container>
       <Footer />
     </div>

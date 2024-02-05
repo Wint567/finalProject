@@ -1,39 +1,29 @@
-const GET_CARDS_INFO = 'GET_CARDS_INFO';
-const GET_QUESTIONS_INFO = 'GET_QUESTIONS_INFO';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  cards: null,
-  showmore: null,
+  cards: [],
+  showmore: [],
   questions: [],
 };
-
 /* eslint-disable */
-export const cardsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case GET_CARDS_INFO:
-      return {
-        ...state,
-        cards: action.cards,
-        showmore: action.showmore,
-      };
-    case GET_QUESTIONS_INFO:
-      return {
-        ...state,
-        questions: [action.questions],
-      }
-    default:
-      return state;
-  }
-};
+export const cardsReducer = createSlice({
+  name: 'cards',
+  initialState,
+  reducers: {
+    getCardsInfo: (state, action) => {
+      state.cards = action.payload.cards;
+      state.showmore = action.payload.showmore;
+    },
+    getQuestionsInfo: (state, action) => {
+      state.questions = action.payload;
+    },
+  },
+});
 /* eslint-enable */
 
-export const getCardsData = (cards, showmore) => ({
-  type: GET_CARDS_INFO,
-  cards,
-  showmore,
-});
+export const { getCardsInfo, getQuestionsInfo } = cardsReducer.actions;
+export const selectCards = (state) => state.cards.cards;
+export const selectShowmore = (state) => state.cards.showmore;
+export const selectQuestions = (state) => state.cards.questions;
 
-export const getQuestionsData = (questions) => ({
-  type: GET_QUESTIONS_INFO,
-  questions,
-});
+export const cards = cardsReducer.reducer;

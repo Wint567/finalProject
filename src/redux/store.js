@@ -1,11 +1,12 @@
-import { combineReducers, createStore } from 'redux';
-import { cardsReducer } from './cardsReducer';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { thunk } from 'redux-thunk';
+import { cards } from './cardsReducer';
 
 const reducers = combineReducers({
-  cards: cardsReducer,
+  cards,
 });
 
-const store = createStore(reducers);
+const store = createStore(reducers, applyMiddleware(thunk));
 
 export default store;
 

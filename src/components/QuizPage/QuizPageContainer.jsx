@@ -1,38 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import QuizPagePreStart from './QuizPagePreStart';
 import { CardsAPI } from '../../api/api';
-import { getQuestionsData } from '../../redux/cardsReducer';
+import { getQuestionsInfo, selectQuestions } from '../../redux/cardsReducer';
 
 const QuizPageContainer = () => {
   const dispatch = useDispatch();
-  const questions = useSelector((state) => state.cards.questions[0]);
+  const questions = useSelector(selectQuestions);
   const { quizName } = useParams();
-  const image = useSelector((state) => {
-    switch (quizName) {
-      case 'html':
-        return state.cards.cards[0].image;
-      case 'css':
-        return state.cards.cards[1].image;
-      case 'js':
-        return state.cards.cards[2].image;
-      default:
-        return '';
-    }
-  });
+  const image = useSelector((state) => ((state.cards.cards.find((card) => card.name === quizName)?.image) || ''));
 
-  const fetchQuestions = async () => {
-    const response = await CardsAPI.questions();
-    if (response !== null) {
-      dispatch(getQuestionsData(response[0].questions[quizName]));
+  /* eslint-enable */
+  const fetchQuestions = useCallback(async () => {
+    try {
+      const response = await CardsAPI.questions();
+      if (response && response[0] && response[0].questions) {
+        dispatch(getQuestionsInfo(response[0].questions[quizName]));
+      }
+    } catch (error) {
+      console.error('Error fetching cards:', error);
     }
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     fetchQuestions();
   }, []);
-
   return (<QuizPagePreStart image={image} quizInfo={questions}/>);
 };
 

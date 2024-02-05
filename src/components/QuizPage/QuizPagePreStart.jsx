@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
   Button,
-  QuizContainer, QuizLi,
+  QuizContainer,
+  QuizLi,
   Time,
   Title,
 } from './style';
@@ -18,7 +19,7 @@ const QuizPagePreStart = ({ quizInfo, image }) => {
   const onClickVariant = (index) => {
     setStep(step + 1);
 
-    if (!timeUp && index === quizInfo[step].correct) {
+    if (!timeUp && index === quizInfo[step]?.correct) {
       setCorrect(correct + 1);
     }
   };
@@ -58,7 +59,7 @@ const QuizPagePreStart = ({ quizInfo, image }) => {
       {quizInfo[step] && !timeUp && (
         <>
           <img src={image} alt={'quiz-image'} />
-          <Time>Оставшееся время: {Math.floor(time / 60)}:{(time % 60).toString().padStart(2, '0')}</Time>
+          <Time>Remaining time: {Math.floor(time / 60)}:{(time % 60).toString().padStart(2, '0')}</Time>
           <Title>{quizInfo[step]?.title}</Title>
           <ul>
             {quizInfo[step]?.options.map((text, index) => (
@@ -68,8 +69,7 @@ const QuizPagePreStart = ({ quizInfo, image }) => {
         </>
       )}
 
-      {step >= quizInfo.length || timeUp
-        ? <Results quizTime={quizTime} correct={correct} length={quizInfo.length}/> : null}
+      {step >= quizInfo.length || timeUp ? <Results quizTime={quizTime} correct={correct} length={quizInfo.length}/> : null}
     </QuizContainer>
   );
 };

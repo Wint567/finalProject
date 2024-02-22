@@ -3,19 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from './Card';
 import { CardsAPI } from '../../api/api';
 import { Cards } from './style';
-import { getCardsData } from '../../redux/cardsReducer';
+import { getCardsInfo, selectCards, selectShowmore } from '../../redux/cardsReducer';
 
 const CardsContainer = () => {
   const dispatch = useDispatch();
-  const cardsInfo = useSelector((state) => state.cards.cards);
-  const showMoreInfo = useSelector((state) => state.cards.showmore);
+  const cardsInfo = useSelector(selectCards);
+  const showMoreInfo = useSelector(selectShowmore);
 
   const fetchCards = useCallback(async () => {
-    const response = await CardsAPI.cards();
-    if (response !== null) {
-      dispatch(getCardsData(response[0].cards, response[0].showmore));
+    try {
+      const response = await CardsAPI.cards();
+      if (response !== null) {
+        dispatch(getCardsInfo({ cards: response[0].cards, showmore: response[0].showmore }));
+      }
+    } catch (error) {
+      console.error('Error fetching cards:', error);
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     fetchCards();

@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import Sidebar from '../components/Sidebar/Sidebar';
-import { Container } from './style';
+import { Container } from './style.ts';
 import CardsContainer from '../components/Card/CardsContainer';
 import QuizPageContainer from '../components/QuizPage/QuizPageContainer';
 

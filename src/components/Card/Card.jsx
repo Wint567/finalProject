@@ -8,15 +8,19 @@ import {
 } from './style';
 
 const Card = memo(({ cardsInfo, quizInfo }) => (
-  <StyleCardsContainer>
-    <img src={cardsInfo.image} alt="cardImage"/>
-    <CardTitleStyle>{cardsInfo.name.toUpperCase()}</CardTitleStyle>
-    <CardTextStyle>{cardsInfo.description}</CardTextStyle>
-    <ButtonContainer>
-      <ButtonStyle to={`/quizPage/${cardsInfo.name}`}>Start</ButtonStyle>
-      {quizInfo && <BasicModal quizInfo={quizInfo}/>}
-    </ButtonContainer>
-  </StyleCardsContainer>
+  <>
+    {cardsInfo && quizInfo && (
+      <StyleCardsContainer>
+        <img src={cardsInfo.image} alt="cardImage"/>
+        <CardTitleStyle>{cardsInfo.name.toUpperCase()}</CardTitleStyle>
+        <CardTextStyle>{cardsInfo.description}</CardTextStyle>
+        <ButtonContainer>
+          <ButtonStyle to={`/quizPage/${cardsInfo.name}`}>Start</ButtonStyle>
+          <BasicModal quizInfo={quizInfo}/>
+        </ButtonContainer>
+      </StyleCardsContainer>
+    )}
+  </>
 ));
 
 export default Card;
